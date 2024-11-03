@@ -17,7 +17,7 @@ export async function NotificationPreview({ slug }: { slug: string }) {
 
   return (
     <Preview>
-      <div className="flex gap-6 font-[family-name:var(--font-sf-ui-text)]">
+      <div className="flex gap-6 select-none text-lg">
         <div className="flex flex-row items-center">
           <AppIcon size="small" />
         </div>
@@ -29,7 +29,7 @@ export async function NotificationPreview({ slug }: { slug: string }) {
             <NotficationPreviewDate date={meta.publishedAt} />
           </div>
 
-          <p>{meta.description}</p>
+          <p className="leading-tight">{meta.description}</p>
         </div>
       </div>
     </Preview>
