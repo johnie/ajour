@@ -6,8 +6,8 @@ type Article = {
 
 export const articles: Article[] = [
   {
-    title: 'Apple uppges jobba på App Store-app enbart för spel',
-    slug: '/apple-uppges-jobba-pa-app-store-app-enbart-for-spel/a/pPKWKW',
+    title: 'Kamala Harris har lagt sin röst i USA-valet',
+    slug: '/kamala-harris-har-rostat-i-usa-valet/a/vg9WPl',
   },
   {
     title: 'Zelenskyjs t-shirt får ryska UD att se rött: ”Jäkla as”',

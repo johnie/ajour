@@ -1,6 +1,8 @@
 // import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { Controls } from '@/components/controls/controls';
 import { NotificationPreview } from './_components/notification-preview';
+import { Loader } from '@/components/loader';
 // import { CONTROLS_SEARCH_PARAMS } from '@/lib/params/controls';
 
 type Params = Promise<{ slugs: string[] }>;
@@ -40,7 +42,9 @@ export default async function Page({ params }: { params: Params }) {
   return (
     <div className="flex flex-col justify-center items-center">
       <Controls />
-      <NotificationPreview slug={slug} />
+      <Suspense fallback={<Loader />}>
+        <NotificationPreview slug={slug} />
+      </Suspense>
     </div>
   );
 }
