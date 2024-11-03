@@ -25,7 +25,7 @@ export function Preview({ children }: PropsWithChildren) {
 
         <div
           className={cn(
-            'relative min-w-[500px] rounded-[30px] border border-primary/10 bg-background/60 px-6 py-4 transition-all duration-300 backdrop-blur-lg',
+            'relative min-w-[500px] rounded-[30px] border border-primary/10 bg-background/60 p-5 transition-all duration-300 backdrop-blur-lg',
             !isSafari && background && 'shadow-2xl'
           )}
         >

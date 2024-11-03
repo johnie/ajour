@@ -27,22 +27,11 @@ const sfUiTextSemiBold = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: '/',
+  },
   title: siteConfig.name,
   description: siteConfig.description,
-  openGraph: {
-    type: 'website',
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
-  },
 };
 
 export default async function RootLayout({
