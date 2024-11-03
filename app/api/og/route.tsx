@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server';
 import { z } from 'zod';
 
 import { THEME_KEYS } from '@/constants/theme';
-import { cn, themeBackground } from '@/lib/utils';
+import { themeBackground } from '@/lib/utils';
 import { createMetaScraper } from '@/lib/meta';
 
 const BASE_URL = 'https://omni.se';
@@ -107,7 +107,7 @@ export async function GET(req: NextRequest) {
         ],
       }
     );
-  } catch (error) {
+  } catch {
     return new Response('Failed to generate the image', { status: 500 });
   }
 }
