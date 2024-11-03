@@ -12,6 +12,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { siteConfig } from '@/constants/site';
 import { cn } from '@/lib/utils';
+import { OpenPanelComponent } from '@openpanel/nextjs';
 
 const sfUiText = localFont({
   src: './fonts/SF-UI-Text-Regular.woff',
@@ -60,6 +61,12 @@ export default async function RootLayout({
                   <Footer />
                 </div>
                 <Toaster />
+                <OpenPanelComponent
+                  clientId={process.env.OPENPANEL_CLIENT_ID!}
+                  trackScreenViews={true}
+                  trackAttributes={true}
+                  trackOutgoingLinks={true}
+                />
               </ThemeProvider>
             </NuqsAdapter>
           </NextIntlClientProvider>
