@@ -32,7 +32,10 @@ export function SearchForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="relative z-50 w-full">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="relative z-50 w-full"
+      >
         <FormField
           control={form.control}
           name="url"
