@@ -15,3 +15,6 @@ export function themeBackground(theme: Theme) {
     backgroundImage: `linear-gradient(140deg, ${background.from}, ${background.to})`,
   } satisfies CSSProperties;
 }
+
+export const omniUrlRegex =
+  /^https:\/\/omni\.se\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+/;
