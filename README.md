@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ajour
 
-## Getting Started
+> [!NOTE]
+> Ajour is not an official Omni product.
 
-First, run the development server:
+Ajour is a tool for creating beautiful screenshots of Omni articles. The name is inspired by the former news site [ajour.se](https://ajour.se)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Themes:** Choose from various backgrounds and switch between light or dark mode.
+- **Customization:** Adjust margins to achieve your desired look.
+- **Export:** When you're satisfied, click on "Export Image" in the upper right corner to save the image as PNG or SVG, or share a link to your image.
+- **Resolution:** Change the image resolution in the export menu to suit your needs.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Check out the live application: [Ajour](https://ajour.jh.gy)
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone https://github.com/johnie/ajour.git
+   ```
 
-## Deploy on Vercel
+2. **Navigate to the project directory:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   cd ajour
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Install dependencies:**
+
+   ```bash
+   pnpm install
+   ```
+
+4. **Start the development server:**
+
+   ```bash
+   pnpm run dev
+   ```
+
+
+## Usage
+
+1. **Enter an Omni Article URL:**
+   Paste the link of the Omni article you wish to capture.
+
+2. **Customize Appearance:**
+   - Select your preferred theme (light or dark).
+   - Choose a background.
+   - Adjust margins as needed.
+
+3. **Export or Share:**
+   - Click on "Export Image" in the upper right corner.
+   - Save the image as PNG or SVG.
+   - Or share a direct link to your customized image.
+
+4. **Adjust Resolution:**
+   - Use the export menu to change the image resolution according to your needs.
+
+## Contributing
+
+Contributions are welcome! Please see the Contributing Guide https://github.com/johnie/xscrape/blob/main/CONTRIBUTING.md for more information.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+- Inspired by the former news site [ajour.se](https://ajour.se).
+- Developed with [Next.js 15](https://nextjs.org/) and deployed on [Vercel](https://vercel.com/).
