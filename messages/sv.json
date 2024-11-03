@@ -1,0 +1,68 @@
+{
+    "home": {
+        "slogan": "Omvandla Omni-artiklar till snygga bilder på nolltid."
+    },
+    "navigation": {
+        "about": "Om projektet",
+        "theme": "Ändra tema",
+        "light": "Ljust",
+        "dark": "Mörkt",
+        "system": "System"
+    },
+    "controls": {
+        "urlCopied": "URL kopierad till urklipp",
+        "copyUrl": "Kopiera URL",
+        "themeSwitcher": "Tema",
+        "download": "Ladda ner bild",
+        "exportSize": "Exportstorlek",
+        "exportImage": "Exportera bild",
+        "copyImage": "Kopiera bild",
+        "toggleBackground": "Växla bakgrund",
+        "toggleDarkMode": "Växla mörkt läge",
+        "savePng": "Spara PNG",
+        "saveSvg": "Spara SVG",
+        "more": "Mer",
+        "size": "Storlek",
+        "toPng": {
+            "loading": "Exporterar PNG",
+            "success": "PNG exporterad",
+            "error": "Misslyckades med att exportera PNG"
+        },
+        "toSvg": {
+            "loading": "Exporterar SVG",
+            "success": "SVG exporterad",
+            "error": "Misslyckades med att exportera SVG"
+        },
+        "copyPng": {
+            "loading": "Kopierar PNG",
+            "success": "PNG kopierad",
+            "error": "Misslyckades med att kopiera PNG"
+        }
+    },
+    "themes": {
+        "graphite": "Graphit",
+        "titanium": "Titanium",
+        "aurora": "Aurora",
+        "twilight": "Twilight",
+        "forest": "Skog",
+        "desert": "Öken",
+        "lavender": "Lavendel",
+        "cosmic": "Kosmisk",
+        "sunset": "Solnedgång"
+    },
+    "not-found": {
+        "title": "Sidan hittades inte",
+        "description": "Sidan du försökte nå kunde inte hittas. Kontrollera att du har skrivit rätt URL.",
+        "back": "Till startsidan"
+    },
+    "error": {
+        "title": "Något gick fel!",
+        "description": "Ett fel uppstod när sidan skulle laddas. Kontrollera att du har skrivit rätt URL.",
+        "back": "Tillbaka till startsidan",
+        "retry": "Försök igen"
+    },
+    "about": {
+        "button": "Om projektet",
+        "title": "Vad är Ajour?"
+    }
+}
