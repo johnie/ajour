@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { SearchForm } from '@/components/search-form';
-import { siteConfig } from '@/constants/site';
 import { ExampleArticles } from '@/components/example-articles';
 import { Icons } from '@/components/icons';
 
