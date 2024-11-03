@@ -3,13 +3,9 @@ import { Link as TransitionLink } from 'next-view-transitions';
 import { ThemeSwitcher } from './theme-switcher';
 import { Icons } from './icons';
 import { siteConfig } from '@/constants/site';
-import { Separator } from './ui/separator';
-import { Button } from './ui/button';
-import { useTranslations } from 'next-intl';
 import { AboutDrawer } from './about-drawer';
 
 export const Header = () => {
-  const t = useTranslations('navigation');
   return (
     <header className="flex items-center justify-between p-4 max-w-screen-xl mx-auto w-full">
       <TransitionLink href="/">
