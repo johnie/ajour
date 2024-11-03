@@ -1,44 +1,39 @@
-import React from 'react';
-import type { Metadata } from 'next';
+// import type { Metadata } from 'next';
 import { Controls } from '@/components/controls/controls';
 import { NotificationPreview } from './_components/notification-preview';
-import { CONTROLS_SEARCH_PARAMS } from '@/lib/params/controls';
+// import { CONTROLS_SEARCH_PARAMS } from '@/lib/params/controls';
 
-type Params = { slugs: string[] };
+type Params = Promise<{ slugs: string[] }>;
+// type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-type SearchParams = Record<string, string | string[] | undefined>;
+// TODO: Figure out why dynamic params breaks the build
+// export async function generateMetadata({
+//   params,
+//   searchParams,
+// }: {
+//   params: Params;
+//   searchParams: SearchParams;
+// }) {
+//   const { slugs } = await params;
+//   const slug = slugs.join('/');
+//   const { theme, darkMode } = await searchParams;
+//   const selectedTheme = CONTROLS_SEARCH_PARAMS.theme.parseServerSide(theme);
 
-export async function generateMetadata({
-  params,
-  searchParams,
-}: {
-  params: Params;
-  searchParams: SearchParams;
-}) {
-  const { slugs } = params;
-  const slug = slugs.join('/');
-  const theme = CONTROLS_SEARCH_PARAMS.theme.parseServerSide(
-    searchParams.theme
-  );
+//   const selectedDarkMode =
+//     CONTROLS_SEARCH_PARAMS.darkMode.parseServerSide(darkMode);
 
-  const darkMode = CONTROLS_SEARCH_PARAMS.darkMode.parseServerSide(
-    searchParams.darkMode
-  );
+//   return {
+//     title: `${slug} | ajour`,
+//     openGraph: {
+//       title: `ajour - ${slug}`,
+//       images: [
+//         `/api/og?article=${slug}&theme=${selectedTheme}&darkMode=${selectedDarkMode}`,
+//       ],
+//     },
+//   } satisfies Metadata;
+// }
 
-  return {
-    title: `${slug} | ajour`,
-    openGraph: {
-      title: `ajour - ${slug}`,
-      images: [`/api/og?article=${slug}&theme=${theme}&darkMode=${darkMode}`],
-    },
-  } satisfies Metadata;
-}
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slugs: string[] }>;
-}) {
+export default async function Page({ params }: { params: Params }) {
   const { slugs } = await params;
   const slug = slugs.join('/');
 
