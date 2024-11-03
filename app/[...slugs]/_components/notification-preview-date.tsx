@@ -2,7 +2,7 @@
 
 import { useControls } from '@/lib/params/controls';
 import { cn } from '@/lib/utils';
-import { format, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
 export function NotficationPreviewDate({ date }: { date: string }) {
