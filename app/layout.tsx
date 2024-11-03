@@ -1,71 +1,79 @@
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import localFont from 'next/font/local';
 import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { siteConfig } from '@/constants/site';
+import { cn } from '@/lib/utils';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
+const sfUiText = localFont({
+  src: './fonts/SF-UI-Text-Regular.woff',
+  variable: '--font-sf-ui-text',
+  weight: '400',
 });
 
-const calSans = localFont({
-  src: './fonts/CalSans-SemiBold.woff',
-  variable: '--font-cal-sans',
+const sfUiTextSemiBold = localFont({
+  src: './fonts/SF-UI-Text-Semibold.woff',
+  variable: '--font-sf-ui-text-semibold',
   weight: '600',
 });
 
-const publicoText = localFont({
-  src: './fonts/PublicoText-Roman-Web.woff',
-  variable: '--font-publico-text',
-  weight: '400',
-});
-
-const bentonSansRegular = localFont({
-  src: './fonts/BentonSansForOmni-Regular.woff',
-  variable: '--font-benton-sans',
-  weight: '400',
-});
-
-const bentonSansBold = localFont({
-  src: './fonts/BentonSansForOmni-Bold.woff',
-  variable: '--font-benton-sans',
-  weight: '700',
-});
-
-const bentonSansMedium = localFont({
-  src: './fonts/BentonSansForOmniDisplay-Medium.woff',
-  variable: '--font-benton-sans',
-  weight: '500',
-});
-
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: siteConfig.name,
   description: siteConfig.description,
+  openGraph: {
+    type: 'website',
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
   return (
     <ViewTransitions>
-      <html lang="sv" suppressHydrationWarning>
+      <html lang={locale} suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${calSans.variable} ${publicoText.variable} ${bentonSansRegular.variable} ${bentonSansBold.variable} ${bentonSansMedium.variable} antialiased bg-dots`}
+          className={cn(
+            'antialiased bg-dots',
+            sfUiText.variable,
+            sfUiTextSemiBold.variable
+          )}
         >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <div className="min-h-screen flex flex-col justify-between font-[family-name:var(--font-geist-sans)]">
-              <Header />
-              {children}
-              <Footer />
-            </div>
-          </ThemeProvider>
+          <NextIntlClientProvider messages={messages}>
+            <NuqsAdapter>
+              <ThemeProvider attribute="class" defaultTheme="dark">
+                <div className="min-h-screen flex flex-col justify-between font-[family-name:var(--font-sf-ui-text)]">
+                  <Header />
+                  <TooltipProvider>{children}</TooltipProvider>
+                  <Footer />
+                </div>
+                <Toaster />
+              </ThemeProvider>
+            </NuqsAdapter>
+          </NextIntlClientProvider>
         </body>
       </html>
     </ViewTransitions>

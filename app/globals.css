@@ -7,7 +7,8 @@ body {
 }
 
 @layer base {
-  :root {
+  :root,
+  [data-theme='light'] {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -36,12 +37,13 @@ body {
 
     --omni-green: 164 21% 40%;
 
-    --tw-bg-dotted-spacing-x: 18px;
-    --tw-bg-dotted-spacing-y: 18px;
-    --tw-bg-dotted-color: rgb(0 0 0 / 0.3);
-    --tw-bg-dotted-radius: 1px;
+    --bg-dotted-spacing-x: 18px;
+    --bg-dotted-spacing-y: 18px;
+    --bg-dotted-color: rgb(0 0 0 / 0.3);
+    --bg-dotted-radius: 1px;
   }
-  .dark {
+  .dark,
+  [data-theme='dark'] {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -69,10 +71,10 @@ body {
 
     --omni-green: 166 23% 57%;
 
-    --tw-bg-dotted-spacing-x: 18px;
-    --tw-bg-dotted-spacing-y: 18px;
-    --tw-bg-dotted-color: rgb(255 255 255 / 0.12);
-    --tw-bg-dotted-radius: 1px;
+    --bg-dotted-spacing-x: 18px;
+    --bg-dotted-spacing-y: 18px;
+    --bg-dotted-color: rgb(255 255 255 / 0.12);
+    --bg-dotted-radius: 1px;
   }
 }
 
@@ -95,9 +97,38 @@ body {
   .bg-dots {
     background-image: radial-gradient(
       circle at center,
-      var(--tw-bg-dotted-color) var(--tw-bg-dotted-radius),
+      var(--bg-dotted-color) var(--bg-dotted-radius),
       transparent 0
     );
-    background-size: var(--tw-bg-dotted-spacing-x) var(--tw-bg-dotted-spacing-y);
+    background-size: var(--bg-dotted-spacing-x) var(--bg-dotted-spacing-y);
   }
+
+  .shiny {
+    @apply animate-[8s_rotate_linear_infinite] border-[1px] border-solid border-[#0000];
+    background: linear-gradient(#131219, #131219) padding-box,
+      linear-gradient(var(--angle), #070707, #fff) border-box;
+  }
+
+  @keyframes rotate {
+    to {
+      --angle: 360deg;
+    }
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+}
+
+.transparent-pattern {
+  position: absolute;
+  background-image: linear-gradient(45deg, #09090b 25%, transparent 0),
+    linear-gradient(-45deg, #09090b 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, #09090b 0),
+    linear-gradient(-45deg, transparent 75%, #09090b 0);
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  background-size: 20px 20px;
+  inset: 0;
 }
