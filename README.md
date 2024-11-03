@@ -64,7 +64,7 @@ Check out the live application: [Ajour](https://ajour.jh.gy)
 
 ## Contributing
 
-Contributions are welcome! Please see the Contributing Guide https://github.com/johnie/xscrape/blob/main/CONTRIBUTING.md for more information.
+Contributions are welcome! Please see the [Contributing Guide](https://github.com/johnie/ajour/blob/main/CONTRIBUTING.md) for more information.
 
 ## License
 
