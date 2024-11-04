@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { BorderBeam } from '@/components/ui/border-beam';
 
 const regex = /^https:\/\/omni\.se\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+/;
 
@@ -40,7 +41,7 @@ export function SearchForm() {
           control={form.control}
           name="url"
           render={({ field }) => (
-            <FormItem className="relative mx-auto w-full max-w-[350px] space-y-0 md:max-w-[450px]">
+            <FormItem className="relative mx-auto w-full max-w-[350px] space-y-0 md:max-w-[450px] rounded-full">
               <FormControl>
                 <Input
                   {...field}
@@ -58,6 +59,13 @@ export function SearchForm() {
               >
                 Hämta
               </Button>
+              <BorderBeam
+                size={100}
+                duration={6}
+                delay={9}
+                colorFrom="#fafafa"
+                colorTo="#fafafa"
+              />
             </FormItem>
           )}
         />
