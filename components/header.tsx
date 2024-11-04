@@ -21,7 +21,7 @@ export const Header = () => {
           href={siteConfig.links.github}
           target="_blank"
           rel="noreferrer"
-          className="size-9 flex items-center justify-center rounded-md border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground"
+          className="size-9 flex items-center justify-center border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-full"
         >
           <div>
             <Icons.gitHub className="h-4 w-4" />
