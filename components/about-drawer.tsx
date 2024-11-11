@@ -29,7 +29,7 @@ export function AboutDrawer() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="w-full h-full bg-zinc-100 dark:bg-zinc-900 p-8 rounded-lg">
+        <div className="w-full h-full bg-zinc-100 dark:bg-zinc-900 p-8 rounded-lg overflow-y-auto">
           <DrawerClose asChild>
             <Button
               variant="outline"
