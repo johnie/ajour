@@ -11,3 +11,8 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: 'deps: '
+    groups:
+       dependencies:
+          applies-to: version-updates
+          patterns:
+            - "*"
