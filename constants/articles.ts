@@ -6,11 +6,11 @@ type Article = {
 
 export const articles: Article[] = [
   {
-    title: 'Kamala Harris har lagt sin röst i USA-valet',
-    slug: '/kamala-harris-har-rostat-i-usa-valet/a/vg9WPl',
+    title: 'Trump främjar techjättar: ”Räkna med AI-initiativ”',
+    slug: '/trump-framjar-techjattar-rakna-med-ai-initiativ/a/qP3vp0',
   },
   {
-    title: 'Zelenskyjs t-shirt får ryska UD att se rött: ”Jäkla as”',
-    slug: '/zelenskyjs-t-shirt-far-ryska-ud-att-se-rott-jakla-as/a/QMwPpR',
+    title: 'Apple lanserar ny och mycket kompakt Mac Mini',
+    slug: '/apple-lanserar-ny-och-mycket-kompakt-mac-mini/a/jQkAab',
   },
 ];
