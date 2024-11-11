@@ -30,7 +30,7 @@
     "date-fns": "^4.1.0",
     "html-to-image": "^1.11.11",
     "lucide-react": "^0.454.0",
-    "next": "15.0.2",
+    "next": "15.0.3",
     "next-intl": "^3.24.0",
     "next-themes": "^0.3.0",
     "next-view-transitions": "^0.3.2",
