@@ -29,7 +29,7 @@ export async function NotificationPreview({ slug }: { slug: string }) {
             <NotficationPreviewDate date={data.publishedAt} />
           </div>
 
-          <p className="leading-tight">{data.description}</p>
+          <p className="leading-tight">{data?.description}</p>
         </div>
       </div>
     </Preview>
