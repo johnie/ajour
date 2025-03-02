@@ -2,11 +2,28 @@
 
 import { useControls } from '@/lib/params/controls';
 import { cn } from '@/lib/utils';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow, format } from 'date-fns';
 import { sv } from 'date-fns/locale';
+
+const formateDate = (date: string) => {
+  const twoDays = 1000 * 60 * 60 * 24 * 2;
+  const now = Date.now();
+
+  const dateInMs = new Date(date).getTime();
+  const diff = now - dateInMs;
+
+  if (diff < twoDays) {
+    return formatDistanceToNow(new Date(date), { locale: sv, addSuffix: true });
+  }
+
+  return format(new Date(date), 'd MMMM yyyy', { locale: sv });
+};
 
 export function NotficationPreviewDate({ date }: { date: string }) {
   const [{ darkMode }] = useControls();
+
+  if (!date) return null;
+
   return (
     <div
       className={cn('flex items-center gap-1.5', {
@@ -14,7 +31,7 @@ export function NotficationPreviewDate({ date }: { date: string }) {
         'text-zinc-700': !darkMode,
       })}
     >
-      {formatDistanceToNow(new Date(date), { locale: sv, addSuffix: true })}
+      {formateDate(date)}
     </div>
   );
 }
