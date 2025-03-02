@@ -1,6 +1,5 @@
 import { defineScraper } from 'xscrape';
 import { omniUrlRegex } from '@/lib/utils';
-import { title } from 'process';
 
 const extractOmniSlug = (url: string) => {
   if (!omniUrlRegex.test(url)) return '';
