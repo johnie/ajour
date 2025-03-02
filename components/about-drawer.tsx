@@ -21,7 +21,7 @@ export function AboutDrawer() {
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
-          className="rounded-full border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground"
+          className="rounded-full border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground"
           size="icon"
         >
           <InfoCircledIcon className="w-6 h-6" />
