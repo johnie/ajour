@@ -2,11 +2,36 @@ import { ArrowUpRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { articles } from '@/constants/articles';
 import { Link } from 'next-view-transitions';
+import { createLatestScraper } from '@/lib/meta';
 
-export const ExampleArticles = () => {
+type Article = {
+  title: string;
+  slug: string;
+};
+
+const randomAmount = (max: number) => Math.floor(Math.random() * max);
+const randomArticles = (amount: number, data: Article[] | undefined) => {
+  if (!data) return articles;
+  const uniqueArticles = new Set<Article>();
+  while (uniqueArticles.size < amount) {
+    uniqueArticles.add(data[randomAmount(data.length)]);
+  }
+  return Array.from(uniqueArticles);
+};
+
+export const ExampleArticles = async () => {
+  const getLatestArticles = await fetch('https://omni.se/senaste', {
+    next: { revalidate: 600 },
+  });
+  const latestArticles = await getLatestArticles.text();
+  const { data, error } = await createLatestScraper(latestArticles);
+
+  if (error) return null;
+  const exampleArticles = randomArticles(3, data?.news);
+
   return (
     <div className="mt-6 flex flex-wrap flex-col justify-center items-center gap-3 ">
-      {articles.map((article) => (
+      {exampleArticles.map((article) => (
         <Link key={article.slug} href={article.slug}>
           <Badge
             variant="outline"

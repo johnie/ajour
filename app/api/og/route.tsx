@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
       next: { revalidate: 600 },
     }).then((res) => res.text());
 
-    const meta = createMetaScraper(html);
+    const meta = await createMetaScraper(html);
 
     const colors = darkMode ? COLORS.dark : COLORS.light;
 
@@ -86,7 +86,7 @@ export async function GET(req: NextRequest) {
               borderColor: colors['card-border'],
             }}
           >
-            {meta.description}
+            {meta.data?.description}
           </div>
         </div>
       ),

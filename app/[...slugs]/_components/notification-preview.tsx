@@ -11,9 +11,9 @@ export async function NotificationPreview({ slug }: { slug: string }) {
     next: { revalidate: 600 },
   });
   const html = await res.text();
-  const meta = createMetaScraper(html);
+  const { data } = await createMetaScraper(html);
 
-  if (!meta) return notFound();
+  if (!data) return notFound();
 
   return (
     <Preview>
@@ -26,10 +26,10 @@ export async function NotificationPreview({ slug }: { slug: string }) {
             <span className="font-[family-name:var(--font-sf-ui-text-semibold)]">
               Omni
             </span>
-            <NotficationPreviewDate date={meta.publishedAt} />
+            <NotficationPreviewDate date={data.publishedAt} />
           </div>
 
-          <p className="leading-tight">{meta.description}</p>
+          <p className="leading-tight">{data.description}</p>
         </div>
       </div>
     </Preview>

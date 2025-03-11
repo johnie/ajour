@@ -7,7 +7,7 @@ import { AboutDrawer } from './about-drawer';
 
 export const Header = () => {
   return (
-    <header className="flex items-center justify-between p-4 max-w-screen-xl mx-auto w-full">
+    <header className="flex items-center justify-between p-4 max-w-(--breakpoint-xl) mx-auto w-full">
       <TransitionLink href="/">
         <h1>
           <Icons.ajour className="w-14 h-auto" />
@@ -21,7 +21,7 @@ export const Header = () => {
           href={siteConfig.links.github}
           target="_blank"
           rel="noreferrer"
-          className="size-9 flex items-center justify-center border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-full"
+          className="size-9 flex items-center justify-center border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground rounded-full"
         >
           <div>
             <Icons.gitHub className="h-4 w-4" />

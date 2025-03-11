@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 
 const appIconVariants = cva(
-  'flex items-center justify-center rounded-3xl bg-black dark:bg-white bg-gradient-to-tl dark:from-zinc-50 dark:to-zinc-100 dark:text-zinc-900 p-5 shadow-lg text-zinc-50 from-zinc-800 to-zinc-900',
+  'flex items-center justify-center rounded-3xl bg-black dark:bg-white bg-linear-to-tl dark:from-zinc-50 dark:to-zinc-100 dark:text-zinc-900 p-5 shadow-lg text-zinc-50 from-zinc-800 to-zinc-900',
   {
     variants: {
       size: {
@@ -14,7 +14,7 @@ const appIconVariants = cva(
       },
       variant: {
         default:
-          'bg-white bg-gradient-to-tl text-zinc-50 from-zinc-800 to-zinc-900',
+          'bg-white bg-linear-to-tl text-zinc-50 from-zinc-800 to-zinc-900',
         dark: 'bg-black text-zinc-900 dark:text-zinc-50 from-zinc-50 to-zinc-100',
       },
     },

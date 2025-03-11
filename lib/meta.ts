@@ -1,9 +1,4 @@
-import {
-  createScraper,
-  ZodValidator,
-  type SchemaFieldDefinitions,
-} from 'xscrape';
-import { notificationsSchema, Notifications } from '@/lib/schema/notifications';
+import { defineScraper } from 'xscrape';
 import { omniUrlRegex } from '@/lib/utils';
 
 const extractOmniSlug = (url: string) => {
@@ -11,32 +6,74 @@ const extractOmniSlug = (url: string) => {
   return url.split('https://omni.se/').pop() || '';
 };
 
-const fields: SchemaFieldDefinitions<Notifications> = {
-  slug: {
-    selector: 'meta[property="og:url"]',
-    attribute: 'content',
-    transform: extractOmniSlug,
+export const createMetaScraper = defineScraper({
+  validator: 'zod',
+  schema: (z) =>
+    z.object({
+      slug: z.string(),
+      title: z.string(),
+      description: z.string(),
+      url: z.string(),
+      publishedAt: z.string(),
+      updatedAt: z.string(),
+      author: z.string(),
+    }),
+  extract: {
+    slug: {
+      selector: 'meta[property="og:url"]',
+      value: 'content',
+    },
+    title: { selector: 'title' },
+    description: {
+      selector: 'meta[name="description"], meta[property="og:description"]',
+      value: 'content',
+    },
+    url: { selector: 'meta[property="og:url"]', value: 'content' },
+    publishedAt: {
+      selector: 'meta[property="article:published_time"]',
+      value: 'content',
+    },
+    updatedAt: {
+      selector: 'meta[property="article:modified_time"]',
+      value: 'content',
+    },
+    author: { selector: 'meta[name="author"]', value: 'content' },
   },
-  title: { selector: 'title' },
-  description: {
-    selector: 'meta[name="description"], meta[property="og:description"]',
-    attribute: 'content',
+  transform: async (data) => {
+    const slug = extractOmniSlug(data.url);
+    return {
+      ...data,
+      slug,
+    };
   },
-  url: { selector: 'meta[property="og:url"]', attribute: 'content' },
-  publishedAt: {
-    selector: 'meta[property="article:published_time"]',
-    attribute: 'content',
-  },
-  updatedAt: {
-    selector: 'meta[property="article:modified_time"]',
-    attribute: 'content',
-  },
-  author: { selector: 'meta[name="author"]', attribute: 'content' },
-};
+});
 
-const validator = new ZodValidator(notificationsSchema);
-
-export const createMetaScraper = createScraper<Notifications>({
-  fields,
-  validator,
+export const createLatestScraper = defineScraper({
+  validator: 'zod',
+  schema: (z) =>
+    z.object({
+      news: z.array(
+        z.object({
+          title: z.string(),
+          slug: z.string(),
+        })
+      ),
+    }),
+  extract: {
+    news: [
+      {
+        selector: '.Teaser_teaser__Lkcni',
+        value: {
+          title: {
+            selector: 'a[rel="canonical"]',
+            value: 'aria-label',
+          },
+          slug: {
+            selector: 'a[rel="canonical"]',
+            value: 'href',
+          },
+        },
+      },
+    ],
+  },
 });

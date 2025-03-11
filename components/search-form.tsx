@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { BorderBeam } from '@/components/ui/border-beam';
 
 const regex = /^https:\/\/omni\.se\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+/;
 
@@ -27,7 +26,6 @@ export function SearchForm() {
 
   function handleSubmit({ url }: z.infer<typeof schema>) {
     const [, article] = url.split('https://omni.se/');
-    console.log(url, article);
     router.push(`/${article}`);
   }
 
@@ -47,8 +45,8 @@ export function SearchForm() {
                   {...field}
                   placeholder="https://omni.se/apple-uppges-jobba-pa-app-store-app-enbart-for-spel/a/pPKWKW"
                   className={cn(
-                    'h-12 truncate rounded-full border-primary/15 pl-5 pr-28 shadow-lg backdrop-blur-sm bg-white/30 dark:bg-zinc-950/30',
-                    form.formState.errors.url && '!ring-destructive'
+                    'h-12 truncate rounded-full border-primary/15 pl-5 pr-28 shadow-lg backdrop-blur-xs bg-white/30 dark:bg-zinc-950/30',
+                    form.formState.errors.url && 'ring-destructive!'
                   )}
                 />
               </FormControl>
@@ -59,13 +57,6 @@ export function SearchForm() {
               >
                 Hämta
               </Button>
-              <BorderBeam
-                size={100}
-                duration={6}
-                delay={9}
-                colorFrom="#fafafa"
-                colorTo="#fafafa"
-              />
             </FormItem>
           )}
         />
