@@ -40,7 +40,7 @@ export default async function Page({ params }: { params: Params }) {
   const slug = slugs.join('/');
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center">
       <Controls />
       <Suspense fallback={<Loader />}>
         <NotificationPreview slug={slug} />
