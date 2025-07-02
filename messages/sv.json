@@ -23,6 +23,8 @@
         "saveSvg": "Spara SVG",
         "more": "Mer",
         "size": "Storlek",
+        "portrait": "Porträtt",
+        "landscape": "Landskap",
         "toPng": {
             "loading": "Exporterar PNG",
             "success": "PNG exporterad",

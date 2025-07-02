@@ -7,7 +7,7 @@ import { useIsSafari } from '@/lib/use-is-safari';
 import { cn, themeBackground } from '@/lib/utils';
 
 export function Preview({ children }: PropsWithChildren) {
-  const [{ theme, padding, darkMode, background }] = useControls();
+  const [{ theme, padding, darkMode, background, orientation }] = useControls();
 
   const isSafari = useIsSafari();
 
@@ -15,8 +15,18 @@ export function Preview({ children }: PropsWithChildren) {
     <div className="max-sm:scale-[.6]">
       <div
         id="preview"
-        data-theme={darkMode ? 'dark' : 'light'}
-        className="relative min-w-[600px] max-w-[900px] text-foreground transition-[padding] duration-200"
+        data-theme={cn({
+          dark: darkMode,
+          light: !darkMode,
+        })}
+        className={cn(
+          'relative text-foreground transition-[padding] duration-200 flex justify-center items-center',
+          {
+            'min-w-[600px] max-w-[900px]': orientation === 'landscape',
+            'min-h-[920px] min-w-[600px] aspect-h-16 aspect-w-9':
+              orientation === 'portrait',
+          }
+        )}
         style={{ padding, ...(background ? themeBackground(theme) : {}) }}
       >
         {!background && (
