@@ -2,9 +2,7 @@ import {
   parseAsBoolean,
   parseAsNumberLiteral,
   parseAsStringLiteral,
-  useQueryStates,
-  UseQueryStatesKeysMap,
-} from 'nuqs';
+} from 'nuqs/server';
 
 import { EXPORT_SIZES } from '@/constants/export-size';
 import { PADDING_OPTIONS } from '@/constants/padding';
@@ -16,8 +14,4 @@ export const CONTROLS_SEARCH_PARAMS = {
   darkMode: parseAsBoolean.withDefault(true),
   padding: parseAsNumberLiteral(PADDING_OPTIONS).withDefault(128),
   size: parseAsNumberLiteral(EXPORT_SIZES).withDefault(4),
-} satisfies UseQueryStatesKeysMap;
-
-export function useControls() {
-  return useQueryStates(CONTROLS_SEARCH_PARAMS, { clearOnDefault: true });
-}
+};

@@ -1,5 +1,6 @@
 import { defineScraper } from 'xscrape';
 import { omniUrlRegex } from '@/lib/utils';
+import { z } from 'zod';
 
 const extractOmniSlug = (url: string) => {
   if (!omniUrlRegex.test(url)) return '';
@@ -7,17 +8,15 @@ const extractOmniSlug = (url: string) => {
 };
 
 export const createMetaScraper = defineScraper({
-  validator: 'zod',
-  schema: (z) =>
-    z.object({
-      slug: z.string(),
-      title: z.string(),
-      description: z.string(),
-      url: z.string(),
-      publishedAt: z.string(),
-      updatedAt: z.string(),
-      author: z.string(),
-    }),
+  schema: z.object({
+    slug: z.string(),
+    title: z.string(),
+    description: z.string(),
+    url: z.string(),
+    publishedAt: z.string(),
+    updatedAt: z.string(),
+    author: z.string(),
+  }),
   extract: {
     slug: {
       selector: 'meta[property="og:url"]',
@@ -49,16 +48,14 @@ export const createMetaScraper = defineScraper({
 });
 
 export const createLatestScraper = defineScraper({
-  validator: 'zod',
-  schema: (z) =>
-    z.object({
-      news: z.array(
-        z.object({
-          title: z.string(),
-          slug: z.string(),
-        })
-      ),
-    }),
+  schema: z.object({
+    news: z.array(
+      z.object({
+        title: z.string(),
+        slug: z.string(),
+      })
+    ),
+  }),
   extract: {
     news: [
       {
@@ -75,5 +72,11 @@ export const createLatestScraper = defineScraper({
         },
       },
     ],
+  },
+  transform(data) {
+    const slugPattern = /^\/[a-z0-9\-]+\/a\/[A-Za-z0-9]{6}$/;
+    return {
+      news: data.news.filter((item) => slugPattern.test(item.slug)),
+    };
   },
 });

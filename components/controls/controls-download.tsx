@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { EXPORT_SIZES } from '@/constants/export-size';
 import { download } from '@/components/download';
 import { toBlob, toPng, toSvg } from '@/lib/image';
-import { useControls } from '@/lib/params/controls';
+import { useControls } from '@/lib/params/use-controls';
 import { useZodParams } from '@/lib/use-zod-params';
 import { Button } from '@/components/ui/button';
 import {

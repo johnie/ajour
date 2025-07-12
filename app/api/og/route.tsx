@@ -15,7 +15,7 @@ const searchParamsSchema = z.object({
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
     .catch(true),
-  scale: z.number({ coerce: true }).min(0.5).max(1).catch(0.75),
+  scale: z.coerce.number().min(0.5).max(1).catch(0.75),
 });
 
 const COLORS = {
