@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 
-import { useControls } from '@/lib/params/controls';
+import { useControls } from '@/lib/params/use-controls';
 import { useIsSafari } from '@/lib/use-is-safari';
 import { cn, themeBackground } from '@/lib/utils';
 
