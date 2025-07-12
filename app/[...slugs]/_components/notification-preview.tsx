@@ -1,20 +1,12 @@
-import { notFound } from 'next/navigation';
 import { Preview } from '@/components/preview';
 import { NotficationPreviewDate } from './notification-preview-date';
-import { createMetaScraper } from '@/lib/meta';
 import { AppIcon } from '@/components/app-icon';
 
-const BASE_URL = 'https://omni.se';
-
-export async function NotificationPreview({ slug }: { slug: string }) {
-  const res = await fetch(`${BASE_URL}/${slug}`, {
-    next: { revalidate: 600 },
-  });
-  const html = await res.text();
-  const { data } = await createMetaScraper(html);
-
-  if (!data) return notFound();
-
+export async function NotificationPreview({
+  article,
+}: {
+  article: { description: string; publishedAt: string };
+}) {
   return (
     <Preview>
       <div className="flex gap-6 select-none text-lg">
@@ -26,10 +18,10 @@ export async function NotificationPreview({ slug }: { slug: string }) {
             <span className="font-[family-name:var(--font-sf-ui-text-semibold)]">
               Omni
             </span>
-            <NotficationPreviewDate date={data.publishedAt} />
+            <NotficationPreviewDate date={article.publishedAt} />
           </div>
 
-          <p className="leading-tight">{data.description}</p>
+          <p className="leading-tight">{article.description}</p>
         </div>
       </div>
     </Preview>

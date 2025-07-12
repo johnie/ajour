@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useControls } from '@/lib/params/controls';
+import { useControls } from '@/lib/params/use-controls';
 import { Tooltip } from '@/components/ui/tooltip';
 import { ControlsToggle } from './controls-toggle';
 

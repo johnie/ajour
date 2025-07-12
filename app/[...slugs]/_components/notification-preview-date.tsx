@@ -1,6 +1,6 @@
 'use client';
 
-import { useControls } from '@/lib/params/controls';
+import { useControls } from '@/lib/params/use-controls';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow, format } from 'date-fns';
 import { sv } from 'date-fns/locale';

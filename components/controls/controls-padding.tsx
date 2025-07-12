@@ -1,7 +1,7 @@
 'use client';
 
 import { PADDING_OPTIONS } from '@/constants/padding';
-import { useControls } from '@/lib/params/controls';
+import { useControls } from '@/lib/params/use-controls';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 

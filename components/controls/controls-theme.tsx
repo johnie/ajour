@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Theme, THEME_OPTIONS } from '@/constants/theme';
-import { useControls } from '@/lib/params/controls';
+import { useControls } from '@/lib/params/use-controls';
 import { themeBackground } from '@/lib/utils';
 import {
   Select,
