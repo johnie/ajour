@@ -5,9 +5,11 @@ import createMdx from '@next/mdx';
 const withNextIntl = createNextIntlPlugin();
 const withMdx = createMdx();
 
+type NextPlugin = (config: NextConfig) => NextConfig;
+
 const composePlugins =
-  (...plugins: any[]) =>
-  (config: any) =>
+  (...plugins: NextPlugin[]) =>
+  (config: NextConfig) =>
     plugins.reduce((acc, plugin) => plugin(acc), config);
 
 const nextConfig: NextConfig = {
