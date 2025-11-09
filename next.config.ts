@@ -14,7 +14,12 @@ const composePlugins =
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['gfx.omni.se'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'gfx.omni.se',
+      },
+    ],
   },
   experimental: {
     mdxRs: true,
