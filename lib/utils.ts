@@ -1,8 +1,8 @@
-import { type CSSProperties } from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import type { CSSProperties } from "react";
+import { twMerge } from "tailwind-merge";
 
-import { type Theme, THEMES } from '@/constants/theme';
+import { THEMES, type Theme } from "@/constants/theme";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -1,1 +1,1 @@
-export const OMNI_URL = 'https://omni.se';
+export const OMNI_URL = "https://omni.se";

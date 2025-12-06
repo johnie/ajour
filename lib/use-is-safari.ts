@@ -6,11 +6,11 @@ export function useIsSafari() {
   const [isSafari, setSafari] = useState(false);
 
   useEffect(() => {
-    const isSafari =
+    const detectedSafari =
       navigator.userAgent.indexOf("Safari") > -1 &&
       navigator.userAgent.indexOf("Chrome") <= -1;
 
-    setSafari(isSafari);
+    setSafari(detectedSafari);
   }, []);
 
   return isSafari;

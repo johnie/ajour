@@ -1,14 +1,13 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { z } from 'zod';
-
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 const regex = /^https:\/\/omni\.se\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+/;
 
@@ -21,39 +20,39 @@ export function SearchForm() {
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: { url: '' },
+    defaultValues: { url: "" },
   });
 
   function handleSubmit({ url }: z.infer<typeof schema>) {
-    const [, article] = url.split('https://omni.se/');
+    const [, article] = url.split("https://omni.se/");
     router.push(`/${article}`);
   }
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
         className="relative z-50 w-full"
+        onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormField
           control={form.control}
           name="url"
           render={({ field }) => (
-            <FormItem className="relative mx-auto w-full max-w-[350px] space-y-0 md:max-w-[450px] rounded-full">
+            <FormItem className="relative mx-auto w-full max-w-[350px] space-y-0 rounded-full md:max-w-[450px]">
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="https://omni.se/apple-uppges-jobba-pa-app-store-app-enbart-for-spel/a/pPKWKW"
                   className={cn(
-                    'h-12 truncate rounded-full border-primary/15 pl-5 pr-28 shadow-lg backdrop-blur-xs bg-white/30 dark:bg-zinc-950/30',
-                    form.formState.errors.url && 'ring-destructive!'
+                    "h-12 truncate rounded-full border-primary/15 bg-white/30 pr-28 pl-5 shadow-lg backdrop-blur-xs dark:bg-zinc-950/30",
+                    form.formState.errors.url ? "ring-destructive!" : ""
                   )}
+                  placeholder="https://omni.se/apple-uppges-jobba-pa-app-store-app-enbart-for-spel/a/pPKWKW"
                 />
               </FormControl>
               <Button
-                variant="outline"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-secondary/35 text-zinc-900 dark:text-zinc-100"
+                className="-translate-y-1/2 absolute top-1/2 right-2 rounded-full bg-secondary/35 text-zinc-900 dark:text-zinc-100"
                 disabled={!form.formState.isValid}
+                variant="outline"
               >
                 Hämta
               </Button>

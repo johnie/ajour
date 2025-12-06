@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
@@ -84,7 +84,7 @@
   background-size: var(--bg-dotted-spacing-x) var(--bg-dotted-spacing-y);
 
   @property --angle {
-    syntax: '<angle>';
+    syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
   }
@@ -92,11 +92,12 @@
 
 @utility shiny {
   @apply animate-[8s_rotate_linear_infinite] border-[1px] border-solid border-[#0000];
-  background: linear-gradient(#131219, #131219) padding-box,
+  background:
+    linear-gradient(#131219, #131219) padding-box,
     linear-gradient(var(--angle), #070707, #fff) border-box;
 
   @property --angle {
-    syntax: '<angle>';
+    syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
   }
@@ -110,7 +111,7 @@
 
 @layer base {
   :root,
-  [data-theme='light'] {
+  [data-theme="light"] {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -145,7 +146,7 @@
     --bg-dotted-radius: 1px;
   }
   .dark,
-  [data-theme='dark'] {
+  [data-theme="dark"] {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -197,7 +198,7 @@
   }
 
   @property --angle {
-    syntax: '<angle>';
+    syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
   }
@@ -205,11 +206,16 @@
 
 .transparent-pattern {
   position: absolute;
-  background-image: linear-gradient(45deg, #09090b 25%, transparent 0),
+  background-image:
+    linear-gradient(45deg, #09090b 25%, transparent 0),
     linear-gradient(-45deg, #09090b 25%, transparent 0),
     linear-gradient(45deg, transparent 75%, #09090b 0),
     linear-gradient(-45deg, transparent 75%, #09090b 0);
-  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0;
   background-size: 20px 20px;
   inset: 0;
 }
