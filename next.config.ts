@@ -1,6 +1,6 @@
-import type { NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
-import createMdx from '@next/mdx';
+import createMdx from "@next/mdx";
+import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 const withMdx = createMdx();
@@ -16,8 +16,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'gfx.omni.se',
+        protocol: "https",
+        hostname: "gfx.omni.se",
       },
     ],
   },
