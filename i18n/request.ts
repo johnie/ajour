@@ -1,7 +1,7 @@
-import { getRequestConfig } from 'next-intl/server';
+import { getRequestConfig } from "next-intl/server";
 
 export default getRequestConfig(async () => {
-  const locale = 'sv';
+  const locale = "sv";
 
   return {
     locale,

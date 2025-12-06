@@ -1,3 +1,3 @@
-import sv from './messages/sv.json';
+import sv from "./messages/sv.json";
 
 type Messages = typeof sv;
