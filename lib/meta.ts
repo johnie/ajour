@@ -1,10 +1,12 @@
-import { defineScraper } from 'xscrape';
-import { omniUrlRegex } from '@/lib/utils';
-import { z } from 'zod';
+import { defineScraper } from "xscrape";
+import { z } from "zod";
+import { omniUrlRegex } from "@/lib/utils";
 
 const extractOmniSlug = (url: string) => {
-  if (!omniUrlRegex.test(url)) return '';
-  return url.split('https://omni.se/').pop() || '';
+  if (!omniUrlRegex.test(url)) {
+    return "";
+  }
+  return url.split("https://omni.se/").pop() || "";
 };
 
 export const createMetaScraper = defineScraper({
@@ -20,25 +22,25 @@ export const createMetaScraper = defineScraper({
   extract: {
     slug: {
       selector: 'meta[property="og:url"]',
-      value: 'content',
+      value: "content",
     },
-    title: { selector: 'title' },
+    title: { selector: "title" },
     description: {
       selector: 'meta[name="description"], meta[property="og:description"]',
-      value: 'content',
+      value: "content",
     },
-    url: { selector: 'meta[property="og:url"]', value: 'content' },
+    url: { selector: 'meta[property="og:url"]', value: "content" },
     publishedAt: {
       selector: 'meta[property="article:published_time"]',
-      value: 'content',
+      value: "content",
     },
     updatedAt: {
       selector: 'meta[property="article:modified_time"]',
-      value: 'content',
+      value: "content",
     },
-    author: { selector: 'meta[name="author"]', value: 'content' },
+    author: { selector: 'meta[name="author"]', value: "content" },
   },
-  transform: async (data) => {
+  transform: (data) => {
     const slug = extractOmniSlug(data.url);
     return {
       ...data,
@@ -46,6 +48,8 @@ export const createMetaScraper = defineScraper({
     };
   },
 });
+
+const SLUG_PATTERN = /^\/[a-z0-9-]+\/a\/[A-Za-z0-9]{6}$/;
 
 export const createLatestScraper = defineScraper({
   schema: z.object({
@@ -59,24 +63,23 @@ export const createLatestScraper = defineScraper({
   extract: {
     news: [
       {
-        selector: '.Teaser_teaser__Lkcni',
+        selector: ".Teaser_teaser__Lkcni",
         value: {
           title: {
             selector: 'a[rel="canonical"]',
-            value: 'aria-label',
+            value: "aria-label",
           },
           slug: {
             selector: 'a[rel="canonical"]',
-            value: 'href',
+            value: "href",
           },
         },
       },
     ],
   },
   transform(data) {
-    const slugPattern = /^\/[a-z0-9\-]+\/a\/[A-Za-z0-9]{6}$/;
     return {
-      news: data.news.filter((item) => slugPattern.test(item.slug)),
+      news: data.news.filter((item) => SLUG_PATTERN.test(item.slug)),
     };
   },
 });

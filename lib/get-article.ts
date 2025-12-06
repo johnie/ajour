@@ -1,7 +1,7 @@
-import { z } from 'zod';
-import type { ZodError } from 'zod';
-import { OMNI_URL } from '@/constants/common';
-import { createMetaScraper } from '@/lib/meta';
+import type { ZodError } from "zod";
+import { z } from "zod";
+import { OMNI_URL } from "@/constants/common";
+import { createMetaScraper } from "@/lib/meta";
 
 export async function getArticle(slug: string) {
   const res = await fetch(`${OMNI_URL}/${slug}`, {
