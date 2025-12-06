@@ -78,7 +78,7 @@ const FormItemContext = createContext<FormItemContextValue>(
 
 const FormItem = forwardRef<
   HTMLDivElement,
-  { className?: string; [key: string]: unknown }
+  React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const id = useId();
 
@@ -130,7 +130,7 @@ FormControl.displayName = "FormControl";
 
 const FormDescription = forwardRef<
   HTMLParagraphElement,
-  { className?: string; [key: string]: unknown }
+  React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
   const { formDescriptionId } = useFormField();
 
@@ -147,7 +147,7 @@ FormDescription.displayName = "FormDescription";
 
 const FormMessage = forwardRef<
   HTMLParagraphElement,
-  { className?: string; children?: unknown; [key: string]: unknown }
+  React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message) : children;
