@@ -53,10 +53,10 @@
     "@types/numeral": "^2.0.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "lefthook": "^2.0.8",
+    "lefthook": "^2.0.9",
     "postcss": "^8",
     "tailwindcss": "^4.1.17",
     "typescript": "^5",
-    "ultracite": "6.3.9"
+    "ultracite": "6.3.10"
   }
 }
