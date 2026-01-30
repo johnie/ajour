@@ -15,7 +15,7 @@ export function ControlsPadding() {
           className={cn(
             "relative size-6 text-xs",
             padding === controlsPadding
-              ? "after:-bottom-[3px] after:-translate-x-1/2 text-foreground after:absolute after:left-1/2 after:size-1 after:rounded-full after:bg-primary/20 after:content-['']"
+              ? "text-foreground after:absolute after:-bottom-[3px] after:left-1/2 after:size-1 after:-translate-x-1/2 after:rounded-full after:bg-primary/20 after:content-['']"
               : null
           )}
           key={padding}

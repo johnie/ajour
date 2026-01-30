@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ViewTransitions } from "next-view-transitions";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import { OpenPanelComponent } from "@openpanel/nextjs";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
@@ -45,6 +45,13 @@ export default async function RootLayout({
   return (
     <ViewTransitions>
       <html lang={locale} suppressHydrationWarning>
+        <head>
+          <Script
+            data-website-id="c0e2d605-f2b5-4e8f-9444-41d3bc6160c8"
+            defer
+            src="https://pulse.hjelm.cloud/script.js"
+          />
+        </head>
         <body
           className={cn(
             "bg-dots antialiased",
@@ -61,12 +68,6 @@ export default async function RootLayout({
                   <Footer />
                 </div>
                 <Toaster />
-                <OpenPanelComponent
-                  clientId={process.env.OPENPANEL_CLIENT_ID ?? ""}
-                  trackAttributes={true}
-                  trackOutgoingLinks={true}
-                  trackScreenViews={true}
-                />
               </ThemeProvider>
             </NuqsAdapter>
           </NextIntlClientProvider>

@@ -1,8 +1,8 @@
-type ThemeRecord = {
+interface ThemeRecord {
   id: string;
   name: string;
   background: { from: string; via?: string; to: string };
-};
+}
 
 export const THEMES = {
   graphite: {
