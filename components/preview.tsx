@@ -31,11 +31,12 @@ export function Preview({ children }: PropsWithChildren) {
         <div
           className={cn(
             "relative rounded-[30px] border p-6 backdrop-blur-lg transition-all duration-300",
-            darkMode
-              ? "border-white/10 bg-zinc-900/60"
-              : "border-zinc-900/10 bg-white/60",
-            !isSafari && background && "shadow-2xl",
-            isPortrait ? "w-full" : "min-w-125"
+            {
+              "border-white/10 bg-zinc-900/60": darkMode,
+              "border-zinc-900/10 bg-white/60": !darkMode,
+            },
+            { "shadow-2xl": !isSafari && background },
+            { "w-full": isPortrait, "min-w-125": !isPortrait }
           )}
         >
           {children}

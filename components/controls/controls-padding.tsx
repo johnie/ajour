@@ -12,12 +12,10 @@ export function ControlsPadding() {
     <div className="flex gap-2">
       {PADDING_OPTIONS.map((padding) => (
         <Button
-          className={cn(
-            "relative size-6 text-xs",
-            padding === controlsPadding
-              ? "text-foreground after:absolute after:-bottom-[3px] after:left-1/2 after:size-1 after:-translate-x-1/2 after:rounded-full after:bg-primary/20 after:content-['']"
-              : null
-          )}
+          className={cn("relative size-6 text-xs", {
+            "text-foreground after:absolute after:-bottom-0.75 after:left-1/2 after:size-1 after:-translate-x-1/2 after:rounded-full after:bg-primary/20 after:content-['']":
+              padding === controlsPadding,
+          })}
           key={padding}
           onClick={() => setControls({ padding })}
           size="icon"
