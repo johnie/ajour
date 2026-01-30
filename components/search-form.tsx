@@ -50,7 +50,7 @@ export function SearchForm() {
                 />
               </FormControl>
               <Button
-                className="-translate-y-1/2 absolute top-1/2 right-2 rounded-full bg-secondary/35 text-zinc-900 dark:text-zinc-100"
+                className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-secondary/35 text-zinc-900 dark:text-zinc-100"
                 disabled={!form.formState.isValid}
                 variant="outline"
               >

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-type BorderBeamProps = {
+interface BorderBeamProps {
   className?: string;
   size?: number;
   duration?: number;
@@ -9,7 +9,7 @@ type BorderBeamProps = {
   colorFrom?: string;
   colorTo?: string;
   delay?: number;
-};
+}
 
 export const BorderBeam = ({
   className,

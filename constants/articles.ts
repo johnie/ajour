@@ -1,8 +1,8 @@
-type Article = {
+interface Article {
   title: string;
   slug: string;
   image?: string;
-};
+}
 
 export const articles: Article[] = [
   {

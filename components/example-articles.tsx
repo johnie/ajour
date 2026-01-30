@@ -4,10 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { articles } from "@/constants/articles";
 import { createLatestScraper } from "@/lib/meta";
 
-type Article = {
+interface Article {
   title: string;
   slug: string;
-};
+}
 
 const randomAmount = (max: number) => Math.floor(Math.random() * max);
 const randomArticles = (amount: number, data: Article[] | undefined) => {
