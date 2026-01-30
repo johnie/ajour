@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ViewTransitions } from "next-view-transitions";
@@ -44,6 +45,13 @@ export default async function RootLayout({
   return (
     <ViewTransitions>
       <html lang={locale} suppressHydrationWarning>
+        <head>
+          <Script
+            data-website-id="c0e2d605-f2b5-4e8f-9444-41d3bc6160c8"
+            defer
+            src="https://pulse.hjelm.cloud/script.js"
+          />
+        </head>
         <body
           className={cn(
             "bg-dots antialiased",
