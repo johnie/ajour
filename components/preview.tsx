@@ -14,8 +14,10 @@ export function Preview({ children }: PropsWithChildren) {
   return (
     <div className="max-sm:scale-[.6]">
       <div
-        className="relative min-w-[600px] max-w-[900px] text-foreground transition-[padding] duration-200"
-        data-theme={darkMode ? "dark" : "light"}
+        className={cn(
+          "relative min-w-[600px] max-w-[900px] transition-[padding] duration-200",
+          darkMode ? "text-white" : "text-zinc-900"
+        )}
         id="preview"
         style={{ padding, ...(background ? themeBackground(theme) : {}) }}
       >
@@ -25,7 +27,10 @@ export function Preview({ children }: PropsWithChildren) {
 
         <div
           className={cn(
-            "relative min-w-[500px] rounded-[30px] border border-primary/10 bg-background/60 p-6 backdrop-blur-lg transition-all duration-300",
+            "relative min-w-[500px] rounded-[30px] border p-6 backdrop-blur-lg transition-all duration-300",
+            darkMode
+              ? "border-white/10 bg-zinc-900/60"
+              : "border-zinc-900/10 bg-white/60",
             !isSafari && background && "shadow-2xl"
           )}
         >
