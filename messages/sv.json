@@ -19,6 +19,8 @@
     "copyImage": "Kopiera bild",
     "toggleBackground": "Växla bakgrund",
     "toggleDarkMode": "Växla mörkt läge",
+    "landscape": "Liggande",
+    "portrait": "Stående",
     "savePng": "Spara PNG",
     "saveSvg": "Spara SVG",
     "more": "Mer",
