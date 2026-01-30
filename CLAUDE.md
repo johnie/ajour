@@ -4,126 +4,86 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ajour is a Next.js 16 application for creating beautiful screenshots of Omni (omni.se) articles. It scrapes article metadata, renders iOS-style notification previews, and exports them as PNG or SVG images.
+Ajour is a Next.js 16 application for creating beautiful screenshots of Omni (omni.se) articles. It fetches article data from the Omni API, renders iOS-style notification previews, and exports them as PNG or SVG images.
 
 **Important**: This is not an official Omni product.
 
 ## Development Commands
 
 ```bash
-# Development server with Turbopack
-pnpm dev
-
-# Production build
-pnpm build
-
-# Start production server
-pnpm start
-
-# Run linter
-pnpm lint
+pnpm dev      # Development server with Turbopack
+pnpm build    # Production build
+pnpm start    # Start production server
+pnpm lint     # Run Ultracite (Biome) linter
 ```
 
-**Note**: The project uses `pnpm` as the package manager.
+**Package manager**: `pnpm`
 
 ## Architecture
 
 ### Core Data Flow
 
-1. **Article Fetching** (`lib/get-article.ts`): Fetches HTML from `https://omni.se/{slug}` and uses `xscrape` to extract metadata (title, description, author, timestamps)
-2. **Metadata Scraping** (`lib/meta.ts`): Defines two scrapers:
-   - `createMetaScraper`: Extracts article metadata from Open Graph and meta tags
-   - `createLatestScraper`: Extracts latest news from Omni's homepage
-3. **Preview Rendering** (`app/[...slugs]/_components/notification-preview.tsx`): Renders iOS-style notification with article data
+1. **Article Fetching** (`lib/api/omni.ts`): Fetches from `content.omni.se/v2/articles` API with Zod validation
+2. **Slug Extraction** (`lib/get-article.ts`): Extracts 6-char article ID from URL pattern `/category/a/{id}`
+3. **Preview Rendering** (`app/[...slugs]/_components/notification-preview.tsx`): Renders iOS-style notification
 4. **Image Export** (`lib/image.ts`): Uses `html-to-image` to convert DOM nodes to PNG/SVG
+
+### API Client (`lib/api/`)
+
+- `types.ts`: Zod schemas for Omni API responses, `isTextResource` type guard
+- `omni.ts`: `getArticleById(id)` and `getArticles()` with 1-hour cache (`revalidate: 3600`)
 
 ### URL-Based State Management
 
-The app uses `nuqs` for type-safe URL search params defined in `lib/params/controls.ts`:
+Uses `nuqs` for type-safe URL search params in `lib/params/controls.ts`:
 - `theme`: String literal (graphite, default)
 - `background`: Boolean (show/hide background)
 - `darkMode`: Boolean (light/dark theme)
 - `padding`: Number literal (128px default)
 - `size`: Number literal (export resolution, 4x default)
 
-Access these params via `lib/params/use-controls.tsx` hook in client components.
+Access via `useControls()` hook in client components.
 
-### Routing Structure
+### Routing
 
 - `/` - Landing page with search form and example articles
-- `/[...slugs]` - Dynamic article preview page (e.g., `/nyheter/a/abc123`)
-  - Fetches article on server-side
-  - Generates Open Graph images via `/api/og` route
-  - Renders controls and preview
+- `/[...slugs]` - Article preview (e.g., `/nyheter/a/abc123`)
+- `/api/og` - Open Graph image generation
 
 ### Key Technologies
 
-- **Next.js 16**: App router with React 19, Turbopack dev server
-- **next-intl**: Internationalization (currently Swedish in `messages/sv.json`)
-- **nuqs**: Type-safe URL search params with server-side parsing
-- **xscrape**: HTML scraping with Zod schema validation
+- **Next.js 16**: App Router, React 19, Turbopack
+- **next-intl**: Swedish translations in `messages/sv.json`
+- **nuqs**: Type-safe URL search params
+- **Zod**: API response validation
 - **html-to-image**: DOM to image conversion
 - **Radix UI + Tailwind CSS 4**: UI components with `class-variance-authority`
-
-### Component Structure
-
-```
-components/
-├── controls/          # Control panel UI (theme, padding, download)
-├── ui/               # Shadcn-style Radix UI primitives
-├── preview.tsx       # Wrapper for notification preview
-└── search-form.tsx   # Landing page article URL input
-
-app/
-├── page.tsx          # Landing page
-├── [...slugs]/       # Article preview route
-│   ├── page.tsx      # Server component
-│   └── _components/  # Notification preview components
-└── api/og/           # Open Graph image generation
-```
 
 ## Common Patterns
 
 ### Adding New Control Parameters
 
-1. Define constant in `constants/` (e.g., `NEW_OPTIONS`)
+1. Define constant in `constants/`
 2. Add parser to `CONTROLS_SEARCH_PARAMS` in `lib/params/controls.ts`
-3. Create control component in `components/controls/controls-new.tsx`
+3. Create control component in `components/controls/`
 4. Add to `Controls` component
-5. Consume via `useControls()` hook in client components
-
-### Working with Scraping
-
-The project scrapes Omni.se. If Omni changes their HTML structure:
-- Update selectors in `lib/meta.ts`
-- Validate schema still matches with Zod
-- Test with `getArticle(slug)` function
+5. Consume via `useControls()` hook
 
 ### Image Export
 
-Images are generated client-side from DOM nodes. The export flow:
-1. User clicks download in `ControlsDownload`
-2. `lib/image.ts` functions (`toPng`, `toSvg`, `toBlob`) are called
-3. `html-to-image` renders the DOM node (excluding elements with `data-ignore-in-export`)
-4. File is downloaded via browser
+Images are generated client-side from DOM nodes:
+1. `lib/image.ts` functions (`toPng`, `toSvg`, `toBlob`) render the DOM node
+2. Elements with `data-ignore-in-export` are excluded
+3. Runs twice to ensure fonts/styles are loaded (first render warms cache)
 
-**Note**: Runs twice to ensure fonts and styles are loaded (first render warms cache).
+## Configuration
 
-## Configuration Notes
+- **Path Alias**: `@/*` maps to project root
+- **Image Domains**: `gfx.omni.se` whitelisted in `next.config.ts`
+- **Linting**: Ultracite (Biome-based) - run `pnpm lint` or `npx ultracite fix`
+- **Caching**: API fetches cached for 1 hour via Next.js ISR
 
-- **Path Alias**: `@/*` maps to project root (see `tsconfig.json`)
-- **Image Domains**: `gfx.omni.se` is whitelisted in `next.config.ts`
-- **MDX Support**: Enabled with experimental `mdxRs` flag
-- **ESLint**: Uses Next.js core-web-vitals and TypeScript configs
-- **Revalidation**: Article fetches are cached for 600 seconds (10 minutes)
+## Contributing
 
-## Internationalization
-
-Uses `next-intl` with messages in `messages/sv.json`. Translations are accessed via `useTranslations()` hook.
-
-## Contributing Guidelines
-
-From `CONTRIBUTING.md`:
-- Use conventional commits: `type(scope): description`
-- Format code with Prettier (though no script exists in package.json)
+- Conventional commits: `type(scope): description`
 - Branch naming: `feature/my-feature` or `fix/my-bugfix`
