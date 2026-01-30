@@ -1,25 +1,23 @@
-import type { ZodError } from "zod";
-import { z } from "zod";
-import { OMNI_URL } from "@/constants/common";
-import { createMetaScraper } from "@/lib/meta";
+import { getArticleById } from "@/lib/api/omni";
+
+const ARTICLE_ID_PATTERN = /\/a\/([A-Za-z0-9]{6})$/;
+
+function extractArticleId(slug: string): string | null {
+  const match = slug.match(ARTICLE_ID_PATTERN);
+  return match?.[1] ?? null;
+}
 
 export async function getArticle(slug: string) {
-  const res = await fetch(`${OMNI_URL}/${slug}`, {
-    next: { revalidate: 600 },
-  });
+  const articleId = extractArticleId(slug);
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch article: ${res.statusText}`);
+  if (!articleId) {
+    return { data: null, error: null, slug };
   }
 
-  const html = await res.text();
-  const { data, error } = await createMetaScraper(html);
-
-  if (error) {
-    throw new Error(
-      `Meta scraper error: ${z.prettifyError(error as ZodError)}`
-    );
+  try {
+    const data = await getArticleById(articleId);
+    return { data, error: null, slug };
+  } catch (error) {
+    return { data: null, error, slug };
   }
-
-  return { data, error, slug };
 }

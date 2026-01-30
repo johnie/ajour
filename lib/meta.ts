@@ -48,38 +48,3 @@ export const createMetaScraper = defineScraper({
     };
   },
 });
-
-const SLUG_PATTERN = /^\/[a-z0-9-]+\/a\/[A-Za-z0-9]{6}$/;
-
-export const createLatestScraper = defineScraper({
-  schema: z.object({
-    news: z.array(
-      z.object({
-        title: z.string(),
-        slug: z.string(),
-      })
-    ),
-  }),
-  extract: {
-    news: [
-      {
-        selector: ".Teaser_teaser__Lkcni",
-        value: {
-          title: {
-            selector: 'a[rel="canonical"]',
-            value: "aria-label",
-          },
-          slug: {
-            selector: 'a[rel="canonical"]',
-            value: "href",
-          },
-        },
-      },
-    ],
-  },
-  transform(data) {
-    return {
-      news: data.news.filter((item) => SLUG_PATTERN.test(item.slug)),
-    };
-  },
-});
