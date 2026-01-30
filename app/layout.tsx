@@ -6,7 +6,6 @@ import { ViewTransitions } from "next-view-transitions";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import { OpenPanelComponent } from "@openpanel/nextjs";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
@@ -61,12 +60,6 @@ export default async function RootLayout({
                   <Footer />
                 </div>
                 <Toaster />
-                <OpenPanelComponent
-                  clientId={process.env.OPENPANEL_CLIENT_ID ?? ""}
-                  trackAttributes={true}
-                  trackOutgoingLinks={true}
-                  trackScreenViews={true}
-                />
               </ThemeProvider>
             </NuqsAdapter>
           </NextIntlClientProvider>
