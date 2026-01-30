@@ -10,16 +10,18 @@ export function Preview({ children }: PropsWithChildren) {
   const [{ theme, padding, darkMode, background, orientation }] = useControls();
 
   const isSafari = useIsSafari();
-  const isPortrait = orientation === "portrait";
 
   return (
-    <div className="max-sm:scale-[.6]">
+    <div className="">
       <div
         className={cn(
-          "relative transition-all duration-200",
+          "relative flex items-center justify-center transition-all duration-200",
           { "text-white": darkMode, "text-zinc-900": !darkMode },
-          { "flex h-112.5 w-200 items-center justify-center": !isPortrait },
-          { "min-h-150 min-w-112.5": isPortrait }
+          {
+            "min-w-[600px] max-w-[900px]": orientation === "landscape",
+            "aspect-[9/16] min-h-[920px] min-w-[600px]":
+              orientation === "portrait",
+          }
         )}
         id="preview"
         style={{ padding, ...(background ? themeBackground(theme) : {}) }}
@@ -30,13 +32,12 @@ export function Preview({ children }: PropsWithChildren) {
 
         <div
           className={cn(
-            "relative rounded-[30px] border p-6 backdrop-blur-lg transition-all duration-300",
+            "relative min-w-[500px] rounded-[30px] border p-6 backdrop-blur-lg transition-all duration-300",
             {
               "border-white/10 bg-zinc-900/60": darkMode,
               "border-zinc-900/10 bg-white/60": !darkMode,
             },
-            { "shadow-2xl": !isSafari && background },
-            { "w-full": isPortrait, "min-w-125": !isPortrait }
+            { "shadow-2xl": !isSafari && background }
           )}
         >
           {children}
