@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 
 interface BorderBeamProps {
-  className?: string;
-  size?: number;
-  duration?: number;
-  borderWidth?: number;
   anchor?: number;
+  borderWidth?: number;
+  className?: string;
   colorFrom?: string;
   colorTo?: string;
   delay?: number;
+  duration?: number;
+  size?: number;
 }
 
 export const BorderBeam = ({

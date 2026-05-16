@@ -51,4 +51,4 @@ const Tooltip = ({
   </Root>
 );
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger };

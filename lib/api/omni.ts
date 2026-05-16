@@ -10,18 +10,18 @@ const API_BASE = "https://content.omni.se/v2";
 const REVALIDATE_SECONDS = 3600; // 1 hour
 
 export interface Article {
+  author: string;
+  description: string;
+  publishedAt: string;
   slug: string;
   title: string;
-  description: string;
-  url: string;
-  publishedAt: string;
   updatedAt: string;
-  author: string;
+  url: string;
 }
 
 export interface ArticleListItem {
-  title: string;
   slug: string;
+  title: string;
 }
 
 function extractDescription(article: OmniArticle): string {
