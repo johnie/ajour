@@ -1,22 +1,10 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
-import { z } from "zod";
 
-import { THEME_KEYS } from "@/constants/theme";
-import { createMetaScraper } from "@/lib/meta";
-import { themeBackground } from "@/lib/utils";
+import { THEMES, type Theme } from "@/constants/theme";
 
 const BASE_URL = "https://omni.se";
-
-const searchParamsSchema = z.object({
-  slug: z.string().min(1),
-  theme: z.enum(THEME_KEYS).catch("graphite"),
-  darkMode: z
-    .enum(["true", "false"])
-    .transform((v) => v === "true")
-    .catch(true),
-  scale: z.coerce.number().min(0.5).max(1).catch(0.75),
-});
+const DEFAULT_THEME: Theme = "graphite";
 
 const COLORS = {
   light: {
@@ -39,27 +27,63 @@ const COLORS = {
   },
 };
 
+const META_TAG_RE = /<meta\s+[^>]*>/gi;
+const DESCRIPTION_ATTR_RE =
+  /(?:property|name)\s*=\s*["'](?:og:description|description)["']/i;
+const CONTENT_ATTR_RE = /content\s*=\s*["']([^"']*)["']/i;
+
 export const runtime = "edge";
+
+function extractDescription(html: string): string {
+  for (const match of html.matchAll(META_TAG_RE)) {
+    const tag = match[0];
+    if (DESCRIPTION_ATTR_RE.test(tag)) {
+      const content = tag.match(CONTENT_ATTR_RE);
+      if (content?.[1]) {
+        return content[1];
+      }
+    }
+  }
+  return "";
+}
+
+function parseTheme(value: string | null): Theme {
+  return value && value in THEMES ? (value as Theme) : DEFAULT_THEME;
+}
+
+function parseScale(value: string | null): number {
+  const n = Number(value);
+  if (Number.isFinite(n) && n >= 0.5 && n <= 1) {
+    return n;
+  }
+  return 0.75;
+}
+
+function themeStyle(theme: Theme) {
+  const { background } = THEMES[theme];
+  return {
+    backgroundImage: `linear-gradient(140deg, ${background.from}, ${background.to})`,
+  };
+}
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = req.nextUrl;
+    const slug = searchParams.get("slug");
 
-    const data = searchParamsSchema.parse({
-      slug: searchParams.get("slug"),
-      theme: searchParams.get("theme"),
-      darkMode: searchParams.get("darkMode"),
-      scale: searchParams.get("scale"),
-    });
+    if (!slug) {
+      return new Response("Missing slug", { status: 400 });
+    }
 
-    const { slug, theme, darkMode, scale } = data;
+    const theme = parseTheme(searchParams.get("theme"));
+    const darkMode = searchParams.get("darkMode") !== "false";
+    const scale = parseScale(searchParams.get("scale"));
 
     const html = await fetch(`${BASE_URL}/${slug}`, {
       next: { revalidate: 600 },
     }).then((res) => res.text());
 
-    const meta = await createMetaScraper(html);
-
+    const description = extractDescription(html);
     const colors = darkMode ? COLORS.dark : COLORS.light;
 
     const [interMedium, interSemiBold] = await Promise.all([
@@ -73,7 +97,7 @@ export async function GET(req: NextRequest) {
 
     return new ImageResponse(
       <div
-        style={{ padding: 64, ...themeBackground(theme) }}
+        style={{ padding: 64, ...themeStyle(theme) }}
         tw="w-full h-full flex items-center justify-center"
       >
         <div
@@ -85,7 +109,7 @@ export async function GET(req: NextRequest) {
           }}
           tw="relative min-w-[500px] rounded-[30px] border border-primary/10 bg-background/60 px-6 py-4 backdrop-blur-lg text-[28px]"
         >
-          {meta.data?.description}
+          {description}
         </div>
       </div>,
       {

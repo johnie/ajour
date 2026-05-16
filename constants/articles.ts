@@ -1,7 +1,7 @@
 interface Article {
-  title: string;
-  slug: string;
   image?: string;
+  slug: string;
+  title: string;
 }
 
 export const articles: Article[] = [

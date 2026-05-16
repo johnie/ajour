@@ -1,7 +1,7 @@
 interface ThemeRecord {
+  background: { from: string; via?: string; to: string };
   id: string;
   name: string;
-  background: { from: string; via?: string; to: string };
 }
 
 export const THEMES = {
